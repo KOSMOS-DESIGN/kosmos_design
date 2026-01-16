@@ -1,0 +1,822 @@
+<!doctype html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Заказать дизайн - KOSMOS DESIGN</title>
+    <link rel="icon" href="icon.ico" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.1/anime.min.js"
+    ></script>
+    <link
+            href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+            rel="stylesheet"
+    />
+    <style>
+        :root {
+            --deep-space-navy: #0B1426;
+            --stellar-silver: #E8E8E8;
+            --cosmic-teal: #2DD4BF;
+            --nebula-purple: #8B5CF6;
+            --starlight-white: #FFFFFF;
+            --meteor-orange: #FB923C;
+            --aurora-green: #34D399;
+            --void-black: #000000;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--deep-space-navy);
+            color: var(--stellar-silver);
+            overflow-x: hidden;
+            min-height: 100vh;
+        }
+
+        .mission-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background:
+                    radial-gradient(ellipse at center, rgba(45, 212, 191, 0.1) 0%, transparent 50%),
+                    radial-gradient(ellipse at 80% 20%, rgba(139, 92, 246, 0.1) 0%, transparent 50%),
+                    linear-gradient(135deg, var(--deep-space-navy) 0%, #0F172A 100%);
+            z-index: -2;
+        }
+
+        .cosmic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background:
+                    repeating-linear-gradient(
+                            0deg,
+                            transparent,
+                            transparent 2px,
+                            rgba(45, 212, 191, 0.03) 2px,
+                            rgba(45, 212, 191, 0.03) 4px
+                    ),
+                    repeating-linear-gradient(
+                            90deg,
+                            transparent,
+                            transparent 2px,
+                            rgba(139, 92, 246, 0.03) 2px,
+                            rgba(139, 92, 246, 0.03) 4px
+                    );
+            z-index: -1;
+            animation: gridShift 20s linear infinite;
+        }
+
+        @keyframes gridShift {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(4px, 4px); }
+        }
+
+        .nav-constellation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(11, 20, 38, 0.8);
+        }
+
+        .nav-star {
+            display: inline-block;
+            margin: 0 2rem;
+            padding: 0.5rem 1rem;
+            color: var(--stellar-silver);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+        }
+
+        .nav-star:hover {
+            color: var(--cosmic-teal);
+            text-shadow: 0 0 10px var(--cosmic-teal);
+            background: rgba(45, 212, 191, 0.1);
+        }
+
+        .mission-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            z-index: 10;
+        }
+
+        .mission-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .mission-title {
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--cosmic-teal), var(--nebula-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-shadow: 0 0 30px rgba(45, 212, 191, 0.3);
+        }
+
+        .mission-subtitle {
+            font-size: clamp(1.1rem, 2.5vw, 1.5rem);
+            font-weight: 300;
+            color: var(--stellar-silver);
+            opacity: 0.9;
+        }
+
+        .mission-control-panel {
+            background: rgba(45, 212, 191, 0.05);
+            border: 1px solid rgba(45, 212, 191, 0.2);
+            border-radius: 30px;
+            padding: 3rem;
+            backdrop-filter: blur(15px);
+            box-shadow:
+                    0 20px 40px rgba(0, 0, 0, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .mission-control-panel::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, var(--cosmic-teal), var(--nebula-purple), var(--meteor-orange));
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            position: relative;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.75rem;
+            color: var(--cosmic-teal);
+            font-weight: 600;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 1.25rem;
+            background: rgba(11, 20, 38, 0.8);
+            border: 2px solid rgba(45, 212, 191, 0.3);
+            border-radius: 15px;
+            color: var(--stellar-silver);
+            font-size: 1rem;
+            font-family: 'Inter', sans-serif;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: var(--cosmic-teal);
+            box-shadow:
+                    0 0 20px rgba(45, 212, 191, 0.3),
+                    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            background: rgba(11, 20, 38, 0.9);
+        }
+
+        .form-input::placeholder {
+            color: rgba(232, 232, 232, 0.5);
+            font-style: italic;
+        }
+
+        .mission-briefing-group {
+            grid-column: 1 / -1;
+        }
+
+        .mission-briefing {
+            min-height: 150px;
+            resize: vertical;
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+        }
+
+        .launch-button {
+            background: linear-gradient(45deg, var(--cosmic-teal), var(--nebula-purple));
+            color: var(--starlight-white);
+            border: none;
+            padding: 1.25rem 3rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            position: relative;
+            overflow: hidden;
+            display: block;
+            margin: 0 auto;
+            min-width: 250px;
+        }
+
+        .launch-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(45, 212, 191, 0.4);
+        }
+
+        .launch-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .launch-button:hover::before {
+            left: 100%;
+        }
+
+        .launch-button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .status-indicator {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--aurora-green);
+            box-shadow: 0 0 10px var(--aurora-green);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.7; transform: scale(1.1); }
+        }
+
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 1rem 2rem;
+            border-radius: 15px;
+            color: white;
+            font-weight: 600;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            max-width: 400px;
+            transform: translateX(400px);
+            opacity: 0;
+        }
+
+        .notification-success {
+            background: rgba(52, 211, 153, 0.9);
+            box-shadow: 0 10px 25px rgba(52, 211, 153, 0.3);
+        }
+
+        .notification-error {
+            background: rgba(239, 68, 68, 0.9);
+            box-shadow: 0 10px 25px rgba(239, 68, 68, 0.3);
+        }
+
+        .notification-info {
+            background: rgba(45, 212, 191, 0.9);
+            box-shadow: 0 10px 25px rgba(45, 212, 191, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .mission-container {
+                padding: 6rem 1rem 2rem;
+            }
+
+            .mission-control-panel {
+                padding: 2rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 1.5rem;
+            }
+
+            .launch-button {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+                min-width: 200px;
+            }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+    <style>
+        /* Стили для навигационной панели с разделением на левую и правую части */
+        .nav-constellation {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem;
+            backdrop-filter: blur(10px);
+            background: rgba(11, 20, 38, 0.8);
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 50;
+        }
+
+        .nav-left, .nav-right {
+            display: flex;
+            align-items: center;
+        }
+
+        .nav-star {
+            display: inline-flex;
+            align-items: center;
+            margin: 0 1rem;
+            padding: 0.5rem 1rem;
+            color: var(--stellar-silver);
+            text-decoration: none;
+            position: relative;
+            transition: all 0.3s ease;
+            border-radius: 20px;
+            white-space: nowrap;
+        }
+
+        .nav-star:hover {
+            color: var(--cosmic-teal);
+            text-shadow: 0 0 10px var(--cosmic-teal);
+            background: rgba(45, 212, 191, 0.1);
+        }
+
+        .nav-star::before {
+            content: '';
+            position: absolute;
+            top: -5px;
+            left: 50%;
+            width: 4px;
+            height: 4px;
+            background: var(--cosmic-teal);
+            border-radius: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .nav-star:hover::before {
+            opacity: 1;
+            box-shadow: 0 0 10px var(--cosmic-teal);
+        }
+
+        /* Стили для социальных иконок */
+        .nav-star.social-icon {
+            padding: 0.5rem;
+            margin: 0 0.5rem;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .nav-star.social-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--stellar-silver);
+            transition: all 0.3s ease;
+        }
+
+        .nav-star.social-icon:hover svg {
+            fill: var(--cosmic-teal);
+            filter: drop-shadow(0 0 12px rgba(45, 212, 191, 0.9));
+            transform: scale(1.15);
+        }
+
+        /* Эффект пульсации для социальных иконок при наведении */
+        .nav-star.social-icon:hover::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 50%;
+            border: 2px solid var(--cosmic-teal);
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scale(1.1);
+                opacity: 0.3;
+            }
+            100% {
+                transform: scale(0.95);
+                opacity: 0.7;
+            }
+        }
+
+        /* Адаптивность для мобильных */
+        @media (max-width: 768px) {
+            .nav-constellation {
+                padding: 1rem;
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .nav-left, .nav-right {
+                width: 100%;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            .nav-star {
+                margin: 0.3rem;
+                padding: 0.5rem 0.8rem;
+                font-size: 0.9rem;
+            }
+
+            .nav-star.social-icon {
+                margin: 0.3rem;
+                padding: 0.4rem;
+                width: 36px;
+                height: 36px;
+            }
+
+            .nav-star.social-icon svg {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        @media (min-width: 769px) and (max-width: 1024px) {
+            .nav-star {
+                margin: 0 0.8rem;
+            }
+
+            .nav-star.social-icon {
+                margin: 0 0.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="mission-bg"></div>
+<div class="cosmic-overlay"></div>
+
+<!-- Навигация -->
+<nav class="nav-constellation">
+    <div class="nav-left">
+        <a href="/" class="nav-star">Главная</a>
+        <a href="/portfolio" class="nav-star">Портфолио</a>
+        <a href="/about" class="nav-star">О дизайнере</a>
+        <a href="/mission-control" class="nav-star">Заказать</a>
+    </div>
+
+    <div class="nav-right">
+        <!-- Социальные иконки -->
+        <a
+                href="https://t.me/kosmos_studi0"
+                target="_blank"
+                class="nav-star social-icon"
+                title="Telegram"
+        >
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+            >
+                <path
+                        d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.287 5.906q-1.168.486-4.666 2.01-.567.225-.595.442c-.03.243.275.339.69.47l.175.055c.408.133.958.288 1.243.294q.39.01.868-.32 3.269-2.206 3.374-2.23c.05-.012.12-.026.166.016s.042.12.037.141c-.03.129-1.227 1.241-1.846 1.817-.193.18-.33.307-.358.336a8 8 0 0 1-.188.186c-.38.366-.664.64.015 1.088.327.216.589.393.85.571.284.194.568.387.936.629q.14.092.27.187c.331.236.63.448.997.414.214-.02.435-.22.547-.82.265-1.417.786-4.486.906-5.751a1.4 1.4 0 0 0-.013-.315.34.34 0 0 0-.114-.217.53.53 0 0 0-.31-.093c-.3.005-.763.166-2.984 1.09"
+                />
+            </svg>
+        </a>
+
+        <a
+                href="https://www.tiktok.com/@kosmos_designer"
+                target="_blank"
+                class="nav-star social-icon"
+                title="TikTok"
+        >
+            <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="20"
+                    height="20"
+                    fill="currentColor"
+                    viewBox="0 0 16 16"
+            >
+                <path
+                        d="M9 0h1.98c.144.715.54 1.617 1.235 2.512C12.895 3.389 13.797 4 15 4v2c-1.753 0-3.07-.814-4-1.829V11a5 5 0 1 1-5-5v2a3 3 0 1 0 3 3z"
+                />
+            </svg>
+        </a>
+    </div>
+</nav>
+
+<!-- Mission Control Panel -->
+<div class="mission-container">
+    <div class="mission-header reveal">
+        <h1 class="mission-title">Космическая почта</h1>
+        <p
+                class="mission-subtitle"
+        >Оставь свое техническое здание или вопрос, с тобой обязательно свяжутся</p>
+    </div>
+
+    <div class="mission-control-panel reveal">
+        <div class="status-indicator"></div>
+
+        <form id="missionForm" onsubmit="handleMissionLaunch(event)">
+            <div class="form-grid">
+                <div class="form-group">
+                    <label class="form-label" for="missionCommander">Имя</label>
+                    <input
+                            type="text"
+                            id="missionCommander"
+                            name="missionCommander"
+                            class="form-input"
+                            placeholder="Как к вам обращаться?"
+                            required
+                    />
+                </div>
+
+                <div class="form-group">
+                    <label
+                            class="form-label"
+                            for="transmissionFrequency"
+                    >Промокод (необязательно)</label>
+                    <input
+                            type="text"
+                            id="transmissionFrequency"
+                            name="transmissionFrequency"
+                            class="form-input"
+                            placeholder="Если у вас есть промокод..."
+                    />
+                </div>
+
+                <div class="form-group mission-briefing-group">
+                    <label class="form-label" for="missionBriefing">Сообщение</label>
+                    <textarea
+                            id="missionBriefing"
+                            name="missionBriefing"
+                            class="form-input mission-briefing"
+                            placeholder="Опишите детали проекта, цели или же вопрос..."
+                            required
+                    ></textarea>
+                </div>
+            </div>
+
+            <button type="submit" class="launch-button">Отправить космической почтой</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    // Инициализация страницы
+    document.addEventListener('DOMContentLoaded', function() {
+        console.log('DOM загружен, инициализация Mission Control...');
+
+        // Проверка существования элементов формы
+        const commanderField = document.getElementById('missionCommander');
+        const frequencyField = document.getElementById('transmissionFrequency');
+        const briefingField = document.getElementById('missionBriefing');
+
+        if (!commanderField || !frequencyField || !briefingField) {
+            console.error('Ошибка: Не найдены элементы формы!');
+            return;
+        }
+
+        console.log('Элементы формы найдены:', {
+            commander: commanderField,
+            frequency: frequencyField,
+            briefing: briefingField
+        });
+
+        initializeMissionControl();
+    });
+
+    function initializeMissionControl() {
+        // Анимация появления элементов
+        const revealObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    animateReveal(entry.target);
+                }
+            });
+        }, {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => {
+            revealObserver.observe(el);
+        });
+
+        // Анимация панели управления
+        anime({
+            targets: '.mission-control-panel',
+            opacity: [0, 1],
+            scale: [0.9, 1],
+            duration: 800,
+            delay: 300,
+            easing: 'easeOutQuad'
+        });
+    }
+
+    function animateReveal(element) {
+        const delay = element.dataset.delay || 0;
+
+        setTimeout(() => {
+            anime({
+                targets: element,
+                opacity: [0, 1],
+                translateY: [30, 0],
+                duration: 600,
+                easing: 'easeOutQuad'
+            });
+        }, delay);
+    }
+
+    async function handleMissionLaunch(event) {
+        event.preventDefault();
+
+        // Получение формы из события
+        const form = event.target;
+
+        // Получение значений напрямую из элементов формы
+        const missionCommander = document.getElementById('missionCommander').value.trim();
+        const transmissionFrequency = document.getElementById('transmissionFrequency').value.trim();
+        const missionBriefing = document.getElementById('missionBriefing').value.trim();
+
+        // Отладка - вывод значений в консоль
+        console.log('Form values:', {
+            missionCommander,
+            transmissionFrequency,
+            missionBriefing
+        });
+
+        // Валидация (только имя и сообщение обязательны)
+        if (!missionCommander || !missionBriefing) {
+            console.log('Валидация не пройдена:', {
+                hasCommander: !!missionCommander,
+                hasBriefing: !!missionBriefing
+            });
+            showNotification('Заполните обязательные поля (Имя и Сообщение)', 'error');
+            return;
+        }
+
+        console.log('Валидация пройдена, отправка на сервер...');
+
+        const launchButton = form.querySelector('.launch-button');
+        const originalText = launchButton.textContent;
+
+        // Анимация запуска
+        launchButton.disabled = true;
+        launchButton.textContent = 'Отправка...';
+
+        // Анимация кнопки
+        anime({
+            targets: launchButton,
+            scale: [1, 1.05, 1],
+            duration: 300,
+            easing: 'easeInOutQuad'
+        });
+
+        try {
+            // Формируем сообщение в нужном формате
+            const formattedMessage = formatMessage(missionCommander, transmissionFrequency, missionBriefing);
+            
+            // Отправка данных на сервер Express
+            const response = await fetch(`/api/submit-message`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: formattedMessage
+                })
+            });
+
+            const data = await response.json();
+
+            if (response.ok && data.success) {
+                // Успешная отправка - показываем сообщение и перекидываем пользователя
+                showNotification('Сообщение отправлено! Перенаправляем в Telegram...', 'success');
+                
+                // Переход по сгенерированной ссылке через 2 секунды
+                setTimeout(() => {
+                    window.location.href = data.telegram_link;
+                }, 2000);
+                
+                form.reset();
+            } else {
+                throw new Error(data.error || 'Ошибка отправки на сервер');
+            }
+
+        } catch (error) {
+            console.error('Ошибка при отправке:', error);
+            showNotification(`Ошибка: ${error.message}`, 'error');
+        } finally {
+            // Восстановление кнопки
+            launchButton.disabled = false;
+            launchButton.textContent = originalText;
+        }
+    }
+
+    function formatMessage(commander, promocode, briefing) {
+        const promocodeText = promocode.trim() !== '' ? promocode : '-';
+        
+        return `👤 Имя пользователя: ${commander}\n🏷️ Промокод: ${promocodeText}\n📌 Текст: ${briefing}`;
+    }
+
+    function showNotification(message, type = 'info') {
+        const notification = document.createElement('div');
+        notification.className = `notification notification-${type}`;
+        notification.textContent = message;
+
+        document.body.appendChild(notification);
+
+        // Анимация появления
+        anime({
+            targets: notification,
+            translateX: [400, 0],
+            opacity: [0, 1],
+            duration: 300,
+            easing: 'easeOutQuad'
+        });
+
+        // Автоматическое исчезновение
+        setTimeout(() => {
+            anime({
+                targets: notification,
+                translateX: [0, 400],
+                opacity: [1, 0],
+                duration: 300,
+                easing: 'easeInQuad',
+                complete: () => {
+                    document.body.removeChild(notification);
+                }
+            });
+        }, 5000);
+    }
+
+    // Эффекты наведения на поля ввода
+    document.querySelectorAll('.form-input').forEach(input => {
+        input.addEventListener('focus', function() {
+            anime({
+                targets: this,
+                scale: [1, 1.02, 1],
+                duration: 200,
+                easing: 'easeOutQuad'
+            });
+        });
+    });
+</script>
+</body>
+</html>
